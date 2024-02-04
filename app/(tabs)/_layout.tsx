@@ -1,7 +1,6 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -27,6 +26,7 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: false,
       }}
+      initialRouteName="three"
     >
       <Tabs.Screen
         name="index"
@@ -52,7 +52,7 @@ export default function TabLayout() {
         options={{
           title: "Tab Three",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="book" color={color} size={size} />
+            <Ionicons name="camera" color={color} size={size} />
           ),
         }}
       />
