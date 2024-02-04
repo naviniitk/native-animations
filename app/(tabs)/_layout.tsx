@@ -95,6 +95,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="accordion"
+        options={{
+          title: "Accordion",
+          headerTransparent: false,
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="expand" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
