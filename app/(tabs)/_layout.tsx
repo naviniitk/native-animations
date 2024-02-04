@@ -85,6 +85,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="sticky"
+        options={{
+          title: "Sticky",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="color-palette" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
