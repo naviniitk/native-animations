@@ -12,6 +12,7 @@ import FLAMINGO from "../../assets/images/flamingo.png";
 import HAIR_SPRAY from "../../assets/images/hair-spray.png";
 import GAME_CONTROLLER from "../../assets/images/game-controller.png";
 import { useRef } from "react";
+import { StatusBar } from "expo-status-bar";
 
 // const EARRINGS = await Asset.loadAsync(require("../../images/earrings.png"));
 // const FLAMINGO = await Asset.loadAsync(require("../../images/flamingo.png"));
@@ -147,6 +148,7 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" />
       <Backdrop scrollX={scrollX} />
       <Square scrollX={scrollX} />
       <Animated.FlatList

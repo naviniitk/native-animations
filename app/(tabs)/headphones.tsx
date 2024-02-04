@@ -3,6 +3,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
   StyleSheet,
 } from "react-native";
 
@@ -87,10 +88,13 @@ const Ticker = ({ scrollX }: { scrollX: Animated.Value }) => {
               key={index}
               style={{
                 fontSize: TICKER_HEIGHT,
-                lineHeight: TICKER_HEIGHT,
+                lineHeight: Platform.select({
+                  ios: TICKER_HEIGHT + 2,
+                  android: TICKER_HEIGHT + 10,
+                }),
                 textTransform: "uppercase",
                 letterSpacing: 2,
-                fontWeight: "800",
+                // fontWeight: "bold",
                 fontFamily: "SpaceMono-Bold",
               }}
             >
@@ -226,7 +230,7 @@ const Pagination = ({ scrollX }: { scrollX: Animated.Value }) => {
           height: DOT_SIZE,
           borderRadius: DOT_SIZE / 2,
           borderWidth: 2,
-          borderColor: '#ddd',
+          borderColor: "#ddd",
           position: "absolute",
           transform: [{ translateX }],
         }}
@@ -239,7 +243,7 @@ const Pagination = ({ scrollX }: { scrollX: Animated.Value }) => {
               width: DOT_SIZE,
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: 'transparent',
+              backgroundColor: "transparent",
             }}
           >
             <View

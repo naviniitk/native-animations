@@ -1,83 +1,80 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
+import { Link } from "expo-router";
+import { Drawer } from "expo-router/drawer";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { Ionicons } from "@expo/vector-icons";
 
-
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
+    <Drawer
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: false,
+        // headerTitle: "",
+        headerTransparent: true,
       }}
     >
-      <Tabs.Screen
+      <Drawer.Screen
         name="index"
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color, size }) => (
+          title: "Retro",
+          drawerIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
-      <Tabs.Screen
-        name="two"
+      <Drawer.Screen
+        name="headphones"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color, size }) => (
+          title: "Headphones",
+          drawerIcon: ({ color, size }) => (
             <Ionicons name="compass" color={color} size={size} />
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="three"
+      <Drawer.Screen
+        name="shopping"
         options={{
-          title: "Tab Three",
-          tabBarIcon: ({ color, size }) => (
+          title: "Shopping Item",
+          drawerIcon: ({ color, size }) => (
             <Ionicons name="camera" color={color} size={size} />
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="four"
+      <Drawer.Screen
+        name="timer"
         options={{
-          title: "Tab Four",
-          tabBarIcon: ({ color, size }) => (
+          title: "Timer",
+          drawerIcon: ({ color, size }) => (
             <Ionicons name="time" color={color} size={size} />
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="five"
+      <Drawer.Screen
+        name="parallax"
         options={{
-          title: "Carousal",
-          tabBarIcon: ({ color, size }) => (
+          title: "Parallax",
+          drawerIcon: ({ color, size }) => (
             <Ionicons name="camera" color={color} size={size} />
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="six"
+      <Drawer.Screen
+        name="album"
         options={{
-          title: "Album",
-          tabBarIcon: ({ color, size }) => (
+          title: "3D Album",
+          drawerIcon: ({ color, size }) => (
             <Ionicons name="albums" color={color} size={size} />
           ),
         }}
       />
-    </Tabs>
+    </Drawer>
   );
 }
