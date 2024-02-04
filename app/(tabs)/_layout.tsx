@@ -4,16 +4,9 @@ import { Link, Tabs } from "expo-router";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
-import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { Ionicons } from "@expo/vector-icons";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -72,6 +65,16 @@ export default function TabLayout() {
           title: "Carousal",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="camera" color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="six"
+        options={{
+          title: "Album",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="albums" color={color} size={size} />
           ),
         }}
       />
