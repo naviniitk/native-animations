@@ -13,7 +13,6 @@ export default function TabLayout() {
   return (
     <Drawer
       screenOptions={{
-        // headerTitle: "",
         headerTransparent: true,
       }}
     >
@@ -90,8 +89,9 @@ export default function TabLayout() {
         name="sticky"
         options={{
           title: "Sticky",
+          headerTransparent: false,
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="color-palette" color={color} size={size} />
+            <Ionicons name="magnet" color={color} size={size} />
           ),
         }}
       />
