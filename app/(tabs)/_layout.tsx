@@ -106,6 +106,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="stacked"
+        options={{
+          title: "Stack",
+          headerTransparent: false,
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="file-tray-stacked" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
