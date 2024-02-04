@@ -26,7 +26,6 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: false,
       }}
-      initialRouteName="three"
     >
       <Tabs.Screen
         name="index"
@@ -51,6 +50,26 @@ export default function TabLayout() {
         name="three"
         options={{
           title: "Tab Three",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="camera" color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="four"
+        options={{
+          title: "Tab Four",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="time" color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="five"
+        options={{
+          title: "Carousal",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="camera" color={color} size={size} />
           ),
