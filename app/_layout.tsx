@@ -1,6 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
-  DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
@@ -12,7 +11,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { StatusBar } from "expo-status-bar";
 
 export {
   // Catch any errors thrown by the Layout component.

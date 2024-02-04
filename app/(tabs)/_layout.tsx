@@ -75,6 +75,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="colors"
+        options={{
+          title: "Colors",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="color-palette" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
