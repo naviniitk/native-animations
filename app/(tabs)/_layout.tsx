@@ -117,6 +117,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="pincode"
+        options={{
+          title: "Pincode",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="keypad" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
