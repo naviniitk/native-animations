@@ -127,6 +127,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="switch"
+        options={{
+          title: "Switch",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="toggle" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
