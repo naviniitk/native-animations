@@ -158,6 +158,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="ringer"
+        options={{
+          title: "Ringer",
+          headerTransparent: false,
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="call" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
