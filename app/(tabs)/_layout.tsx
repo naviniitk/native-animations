@@ -137,6 +137,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="image-viewer"
+        options={{
+          title: "Image Viewer",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="image" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
