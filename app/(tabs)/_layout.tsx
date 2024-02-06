@@ -147,6 +147,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="scroller"
+        options={{
+          title: "Scroller",
+          headerTransparent: false,
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
