@@ -179,6 +179,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="tabs"
+        options={{
+          title: "Animated Tabs",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="wallet" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
