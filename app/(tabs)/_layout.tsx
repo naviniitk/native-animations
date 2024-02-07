@@ -169,6 +169,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="carousal"
+        options={{
+          title: "Carousal",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="aperture" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
