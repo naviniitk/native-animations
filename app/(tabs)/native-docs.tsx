@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import ReAnimated, {
   SharedTransition,
+  useAnimatedStyle,
+  useSharedValue,
   withDelay,
   withSpring,
 } from "react-native-reanimated";
@@ -153,9 +155,28 @@ const LayoutAnim = () => {
   );
 };
 
+const Box = () => {
+  const sharedVal = useSharedValue(0);
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: sharedVal.value },
+      ],
+    };
+  });
+  return (
+    <View style={{width: '100%'}}>
+      <ReAnimated.View style={[{ width: 100, height: 100, borderRadius: 8, backgroundColor: 'purple' }, animatedStyles]}></ReAnimated.View>
+      <Button title="Move the box" onPress={() => {
+        sharedVal.value = withSpring(Math.random() * 255);
+      }} />
+    </View>
+  );
+};
+
 export default function NativeDocs() {
   const transition = SharedTransition.custom((values) => {
-    "worklet";
+    // "worklet";
     return {
       height: withSpring(values.targetHeight, {
         damping: 100,
@@ -203,6 +224,8 @@ export default function NativeDocs() {
       <Link href="/(tabs)/transition">
         <Text>Go to Transition</Text>
       </Link>
+
+      <Box />
     </View>
   );
 }
