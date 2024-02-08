@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useRef } from "react";
-import { Animated, Text, View, ViewStyle } from "react-native";
+import { Animated, Text, View, ViewStyle, PanResponder } from "react-native";
 
 type FadeInViewProps = PropsWithChildren<{ style: ViewStyle; loop?: boolean }>;
 
@@ -51,6 +51,45 @@ const FadeInView: React.FC<FadeInViewProps> = ({
   );
 };
 
+const PanResponderComp = () => {
+  const panRef = useRef(new Animated.ValueXY()).current;
+  const responderRef = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([
+        null,
+        { dx: panRef.x, dy: panRef.y },
+      ], { useNativeDriver: true}),
+      onPanResponderRelease: () => {
+        Animated.spring(panRef, {
+          toValue: { x: 0, y: 0 },
+          useNativeDriver: true,
+        }).start();
+      },
+    })
+  ).current;
+  return (
+    <View>
+      <Text style={{ fontSize: 16 }}>Drag & Release this box!</Text>
+      <Animated.View
+        style={{
+          transform: [{ translateX: panRef.x }, { translateY: panRef.y }],
+        }}
+        {...responderRef.panHandlers}
+      >
+        <View
+          style={{
+            width: 100,
+            height: 100,
+            backgroundColor: "red",
+            borderRadius: 10,
+          }}
+        />
+      </Animated.View>
+    </View>
+  );
+};
+
 export default function NativeDocs() {
   return (
     <View
@@ -70,6 +109,8 @@ export default function NativeDocs() {
       >
         <Text>Hello World</Text>
       </FadeInView>
+
+      <PanResponderComp />
     </View>
   );
 }
