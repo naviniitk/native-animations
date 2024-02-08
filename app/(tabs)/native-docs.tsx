@@ -56,10 +56,10 @@ const PanResponderComp = () => {
   const responderRef = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([
-        null,
-        { dx: panRef.x, dy: panRef.y },
-      ], { useNativeDriver: true}),
+      onPanResponderMove: Animated.event(
+        [null, { dx: panRef.x, dy: panRef.y }],
+        { useNativeDriver: true }
+      ),
       onPanResponderRelease: () => {
         Animated.spring(panRef, {
           toValue: { x: 0, y: 0 },
@@ -69,7 +69,7 @@ const PanResponderComp = () => {
     })
   ).current;
   return (
-    <View>
+    <View style={{ alignItems: "center" }}>
       <Text style={{ fontSize: 16 }}>Drag & Release this box!</Text>
       <Animated.View
         style={{
@@ -98,6 +98,7 @@ export default function NativeDocs() {
         backgroundColor: "#fff",
         alignItems: "center",
         padding: 20,
+        gap: 20,
       }}
     >
       <FadeInView
