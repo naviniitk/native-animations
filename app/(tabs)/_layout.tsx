@@ -189,6 +189,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="native-docs"
+        options={{
+          title: "Native Docs",
+          headerTransparent: false,
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="star" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
