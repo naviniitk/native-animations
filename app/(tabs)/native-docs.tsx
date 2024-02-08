@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 import {
   Animated,
@@ -7,7 +8,13 @@ import {
   PanResponder,
   Button,
   LayoutAnimation,
+  Pressable,
 } from "react-native";
+import ReAnimated, {
+  SharedTransition,
+  withDelay,
+  withSpring,
+} from "react-native-reanimated";
 
 type FadeInViewProps = PropsWithChildren<{ style: ViewStyle; loop?: boolean }>;
 
@@ -99,20 +106,28 @@ const PanResponderComp = () => {
 };
 
 const LayoutAnim = () => {
-  const [boxPosition, setBoxPosition] = React.useState<"left" | "right">("left");
+  const [boxPosition, setBoxPosition] = React.useState<"left" | "right">(
+    "left"
+  );
 
   const toggleBox = () => {
     LayoutAnimation.configureNext({
       duration: 1000,
-      create: {type: 'linear', property: 'opacity'},
-      update: {type: 'spring', springDamping: 0.8},
-      delete: {type: 'linear', property: 'opacity'},
-    })
-    setBoxPosition(boxPosition === "left"? "right" : "left");
+      create: { type: "linear", property: "opacity" },
+      update: { type: "spring", springDamping: 0.8 },
+      delete: { type: "linear", property: "opacity" },
+    });
+    setBoxPosition(boxPosition === "left" ? "right" : "left");
   };
-  
+
   return (
-    <View style={{ alignItems: "flex-start", justifyContent: "center", width: '100%' }}>
+    <View
+      style={{
+        alignItems: "flex-start",
+        justifyContent: "center",
+        width: "100%",
+      }}
+    >
       <View style={{ alignSelf: "center" }}>
         <Button title="Toggle Layout" onPress={toggleBox} />
       </View>
@@ -139,6 +154,21 @@ const LayoutAnim = () => {
 };
 
 export default function NativeDocs() {
+  const transition = SharedTransition.custom((values) => {
+    "worklet";
+    return {
+      height: withSpring(values.targetHeight, {
+        damping: 100,
+        mass: 1,
+        stiffness: 100,
+      }),
+      width: withSpring(values.targetWidth, {
+        damping: 100,
+        mass: 1,
+        stiffness: 100,
+      }),
+    };
+  });
   return (
     <View
       style={{
@@ -162,6 +192,17 @@ export default function NativeDocs() {
       <PanResponderComp />
 
       <LayoutAnim />
+
+      <ReAnimated.View
+        sharedTransitionTag="Transition"
+        sharedTransitionStyle={transition}
+        style={{ width: 50, height: 50, backgroundColor: "green" }}
+      >
+        <Text>I am Transitioning</Text>
+      </ReAnimated.View>
+      <Link href="/(tabs)/transition">
+        <Text>Go to Transition</Text>
+      </Link>
     </View>
   );
 }
