@@ -1,5 +1,13 @@
 import React, { PropsWithChildren, useEffect, useRef } from "react";
-import { Animated, Text, View, ViewStyle, PanResponder } from "react-native";
+import {
+  Animated,
+  Text,
+  View,
+  ViewStyle,
+  PanResponder,
+  Button,
+  LayoutAnimation,
+} from "react-native";
 
 type FadeInViewProps = PropsWithChildren<{ style: ViewStyle; loop?: boolean }>;
 
@@ -58,7 +66,7 @@ const PanResponderComp = () => {
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event(
         [null, { dx: panRef.x, dy: panRef.y }],
-        { useNativeDriver: true }
+        { useNativeDriver: false }
       ),
       onPanResponderRelease: () => {
         Animated.spring(panRef, {
@@ -90,6 +98,46 @@ const PanResponderComp = () => {
   );
 };
 
+const LayoutAnim = () => {
+  const [boxPosition, setBoxPosition] = React.useState<"left" | "right">("left");
+
+  const toggleBox = () => {
+    LayoutAnimation.configureNext({
+      duration: 1000,
+      create: {type: 'linear', property: 'opacity'},
+      update: {type: 'spring', springDamping: 0.8},
+      delete: {type: 'linear', property: 'opacity'},
+    })
+    setBoxPosition(boxPosition === "left"? "right" : "left");
+  };
+  
+  return (
+    <View style={{ alignItems: "flex-start", justifyContent: "center", width: '100%' }}>
+      <View style={{ alignSelf: "center" }}>
+        <Button title="Toggle Layout" onPress={toggleBox} />
+      </View>
+      <View
+        style={[
+          {
+            height: 100,
+            width: 100,
+            borderRadius: 5,
+            margin: 8,
+            backgroundColor: "blue",
+          },
+          boxPosition === "left"
+            ? null
+            : {
+                alignSelf: "flex-end",
+                height: 200,
+                width: 200,
+              },
+        ]}
+      />
+    </View>
+  );
+};
+
 export default function NativeDocs() {
   return (
     <View
@@ -112,6 +160,8 @@ export default function NativeDocs() {
       </FadeInView>
 
       <PanResponderComp />
+
+      <LayoutAnim />
     </View>
   );
 }
