@@ -9,13 +9,21 @@ import {
   Button,
   LayoutAnimation,
   Pressable,
+  ScrollView,
 } from "react-native";
+import {
+  Gesture,
+  GestureDetector,
+  TapGestureHandler,
+} from "react-native-gesture-handler";
 import ReAnimated, {
   SharedTransition,
+  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 type FadeInViewProps = PropsWithChildren<{ style: ViewStyle; loop?: boolean }>;
@@ -159,18 +167,80 @@ const Box = () => {
   const sharedVal = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [
-        { translateX: sharedVal.value },
-      ],
+      transform: [{ translateX: sharedVal.value }],
     };
   });
   return (
-    <View style={{width: '100%'}}>
-      <ReAnimated.View style={[{ width: 100, height: 100, borderRadius: 8, backgroundColor: 'purple' }, animatedStyles]}></ReAnimated.View>
-      <Button title="Move the box" onPress={() => {
-        sharedVal.value = withSpring(Math.random() * 255);
-      }} />
+    <View style={{ width: "100%" }}>
+      <ReAnimated.View
+        style={[
+          {
+            width: 100,
+            height: 100,
+            borderRadius: 8,
+            backgroundColor: "purple",
+          },
+          animatedStyles,
+        ]}
+      ></ReAnimated.View>
+      <Button
+        title="Move the box"
+        onPress={() => {
+          sharedVal.value = withSpring(Math.random() * 255);
+        }}
+      />
     </View>
+  );
+};
+
+const TapCircle = () => {
+  const pressed = useSharedValue(false);
+  const offsetX = useSharedValue(0);
+  const offsetY = useSharedValue(0);
+
+  const tap = Gesture.Pan()
+    .onBegin(() => {
+      pressed.value = true;
+    })
+    .onChange((event) => {
+      offsetX.value = event.translationX;
+      offsetY.value = event.translationY;
+    })
+    .onFinalize(() => {
+      offsetX.value = withSpring(0);
+      offsetY.value = withSpring(0);
+      pressed.value = false;
+    });
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    backgroundColor: pressed.value ? "#FFE04B" : "#B58DF1",
+    transform: [
+      {
+        scale: withTiming(pressed.value ? 1.2 : 1),
+      },
+      {
+        translateX: offsetX.value,
+      },
+      {
+        translateY: offsetY.value,
+      },
+    ],
+  }));
+
+  return (
+    <GestureDetector gesture={tap}>
+      <ReAnimated.View
+        style={[
+          {
+            width: 100,
+            height: 100,
+            borderRadius: 100,
+            backgroundColor: "#B58DF1",
+          },
+          animatedStyles,
+        ]}
+      />
+    </GestureDetector>
   );
 };
 
@@ -197,35 +267,42 @@ export default function NativeDocs() {
         backgroundColor: "#fff",
         alignItems: "center",
         padding: 20,
-        gap: 20,
       }}
     >
-      <FadeInView
-        style={{
-          borderRadius: 10,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ width: "100%" }}
+        contentContainerStyle={{ gap: 20 }}
       >
-        <Text>Hello World</Text>
-      </FadeInView>
+        <FadeInView
+          style={{
+            borderRadius: 10,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text>Hello World</Text>
+        </FadeInView>
 
-      <PanResponderComp />
+        <PanResponderComp />
 
-      <LayoutAnim />
+        <LayoutAnim />
 
-      <ReAnimated.View
-        sharedTransitionTag="Transition"
-        sharedTransitionStyle={transition}
-        style={{ width: 50, height: 50, backgroundColor: "green" }}
-      >
-        <Text>I am Transitioning</Text>
-      </ReAnimated.View>
-      <Link href="/(tabs)/transition">
-        <Text>Go to Transition</Text>
-      </Link>
+        <ReAnimated.View
+          sharedTransitionTag="Transition"
+          sharedTransitionStyle={transition}
+          style={{ width: 50, height: 50, backgroundColor: "green" }}
+        >
+          <Text>I am Transitioning</Text>
+        </ReAnimated.View>
+        <Link href="/(tabs)/transition">
+          <Text>Go to Transition</Text>
+        </Link>
 
-      <Box />
+        <Box />
+
+        <TapCircle />
+      </ScrollView>
     </View>
   );
 }
