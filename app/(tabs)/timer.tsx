@@ -52,11 +52,13 @@ export default function Fourth() {
           toValue: height,
           duration: duration * 1000,
           useNativeDriver: true,
+          easing: Easing.linear,
         }),
         Animated.timing(textInputAnimation, {
           toValue: 0,
           duration: duration * 1000,
           useNativeDriver: true,
+          easing: Easing.linear,
         }),
       ]),
     ]);
